@@ -19,7 +19,7 @@ export function getUsers(): User[] {
 }
 
 export function saveUsers(users: User[]): void {
-
+    if(typeof window === "undefined") return
     localStorage.setItem(KEYS.users, JSON.stringify(users))
 }
 
@@ -34,8 +34,8 @@ export function getSession(): Session | null {
 
     return null
 }
-export function saveSession(session: Session): void | null {
-    if(typeof window === "undefined") return null
+export function saveSession(session: Session): void {
+    if(typeof window === "undefined") return
 
     localStorage.setItem(KEYS.session, JSON.stringify(session))
 }
@@ -56,5 +56,6 @@ export function getHabits(): Habit[] {
     return []
 }
 export function saveHabits(habits: Habit[]): void {
+    if(typeof window === "undefined") return
     localStorage.setItem(KEYS.habits, JSON.stringify(habits))
 }
