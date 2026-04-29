@@ -11,8 +11,11 @@ describe("calculateCurrentStreak", ()=> {
     it("returns the correct streak for consecutive completed days", ()=> {
         expect(calculateCurrentStreak(["2026-04-24", "2026-04-25", "2026-04-26"], "2026-04-26")).toBe(3)
     })
-    it("ignores duplicate completion dates", ()=> {
-        expect(calculateCurrentStreak(["2026-04-25", "2026-04-25", "2026-04-26"])).toBe(2)
+    it("ignores duplicate completion dates", () => {
+        expect(calculateCurrentStreak(
+            ["2026-04-28", "2026-04-28", "2026-04-29"],
+            "2026-04-29"
+        )).toBe(2)
     })
     it("breaks the streak when a calendar day is missing", ()=> {
         expect(calculateCurrentStreak(["2026-03-26", "2026-03-26"])).toBe(0)
