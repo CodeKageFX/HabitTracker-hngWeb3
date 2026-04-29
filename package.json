@@ -7,11 +7,11 @@
     "build": "next build --webpack",
     "start": "next start",
     "lint": "eslint",
-    "test:unit": "vitest run --coverage",
-    "test:integration": "vitest run",
+    "test:unit": "vitest run tests/unit --coverage",
+    "test:integration": "vitest run tests/integration",
     "test:e2e": "playwright test",
     "test": "npm run test:unit && npm run test:integration && npm run test:e2e"
-},
+  },
   "dependencies": {
     "@serwist/next": "^9.5.7",
     "next": "16.2.4",
