@@ -8,6 +8,6 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 20
-      - run: npm ci
+      - run: npm install --legacy-peer-deps
       - run: npx playwright install --with-deps
       - run: npm run test:e2e
