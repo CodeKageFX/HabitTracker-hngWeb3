@@ -1,36 +1,108 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Habit Tracker PWA
 
-## Getting Started
+A mobile-first, local-first Progressive Web App built with Next.js 16 to help users build and track daily habits with deterministic persistence and streak tracking.
 
-First, run the development server:
+## Project Overview
 
+This application is a Stage 3 implementation of a Habit Tracker PWA. It focuses on technical discipline, testability, and a premium user experience while maintaining all data locally within the browser.
+
+### Key Features
+- **Deterministic Auth:** Signup and Login simulation using localized user data.
+- **Habit Management:** Robust CRUD operations for daily habits.
+- **Streak Tracking:** Algorithmic calculation of consecutive daily completions.
+- **Profile Switching:** Seamlessly jump between multiple local accounts.
+- **PWA Ready:** Installable with offline shell support via Serwist.
+
+---
+
+## 🛠 Setup Instructions
+
+### Prerequisites
+- Node.js 18 or higher
+- npm (Node Package Manager)
+
+### Installation
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/CodeKageFX/HabitTracker-hngWeb3.git
+   cd habit-tracker
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Install Playwright browsers (for E2E tests):
+   ```bash
+   npx playwright install
+   ```
+
+---
+
+## 🏃 Running the App
+
+### Development Mode
+Runs the app with Turbopack for the fastest development experience.
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Production Build
+Builds the app for production and runs a local server.
+```bash
+npm run build
+npm run start
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🧪 Test Instructions
 
-## Learn More
+This project includes a comprehensive test suite covering unit, integration, and E2E layers.
 
-To learn more about Next.js, take a look at the following resources:
+| Script | Purpose |
+| :--- | :--- |
+| `npm run test:unit` | Runs Vitest for core utility logic with 80%+ coverage. |
+| `npm run test:integration` | Runs Vitest for component and hook integration flows. |
+| `npm run test:e2e` | Runs Playwright for full end-to-end user journeys. |
+| `npm run test` | Runs the full suite in sequence. |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 📂 Test Mapping
 
-## Deploy on Vercel
+| File | Verify Behavior |
+| :--- | :--- |
+| `tests/unit/slug.test.ts` | **getHabitSlug**: Ensures consistent, URL-safe habit slugs. |
+| `tests/unit/validators.test.ts` | **validateHabitName**: Enforces input constraints and error messaging. |
+| `tests/unit/streaks.test.ts` | **calculateCurrentStreak**: Validates consecutive day logic and edge cases. |
+| `tests/unit/habits.test.ts` | **toggleHabitCompletion**: Ensures immutable updates and duplicate prevention. |
+| `tests/integration/auth-flow.test.tsx` | **Auth Logic**: Verifies signup persistence and login validation. |
+| `tests/integration/habit-form.test.tsx` | **Habit Ops**: Verifies form validation, CRUD state, and streak UI updates. |
+| `tests/e2e/app.spec.ts` | **User Journey**: Validates splash screen, guest redirects, and full CRUD cycles. |
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 💾 Local Persistence Structure
+
+The application uses `localStorage` for deterministic persistence across three main keys:
+
+1.  **`habit-tracker-users`**: Stores a JSON array of registered user objects including email and hashed-equivalent passwords.
+2.  **`habit-tracker-session`**: Stores the active `userId` and `email` to maintain login state.
+3.  **`habit-tracker-habits`**: Stores a global list of habits, filtered at the component level by `userId` to ensure data isolation between profiles.
+
+---
+
+## 📱 PWA Support
+
+PWA functionality is implemented using **Serwist** (`@serwist/next`), which provides:
+- **Service Worker:** Located at `public/sw.js`, it handles caching the App Shell.
+- **Manifest:** Defined in `src/app/manifest.ts`, configuring standalone display mode and icons.
+- **Offline Support:** The app shell remains accessible offline once loaded, preventing crash screens during connectivity loss.
+
+---
+
+## ⚖️ Trade-offs and Limitations
+
+1.  **Local vs. Cloud:** This is a local-first application. No data is synced to a server. If you clear your browser data or use a different device, your habits will not carry over.
+2.  **Security:** Authentication is simulated for architectural demonstration. Passwords are stored in plain-text JSON within LocalStorage, which is suitable for this technical stage but not for production environments.
+3.  **Turbopack Conflict:** Next.js 16 uses Turbopack by default. Because PWA plugins often inject Webpack-specific configs, we acknowledge an empty `turbopack: {}` block in `next.config.ts` to allow both to coexist.
