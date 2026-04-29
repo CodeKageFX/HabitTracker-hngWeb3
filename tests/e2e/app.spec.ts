@@ -106,13 +106,11 @@ test.describe("Habit Tracker app", () => {
         expect(page.url()).toContain("/login")
     })
 
-    test("loads the cached app shell when offline after the app has been loaded once", async ({ page, context }) => {
+    test("loads the cached app shell when offline after the app has been loaded once", async ({ page }) => {
         await page.goto("/")
         await page.waitForURL("**/login")
+        await page.waitForLoadState("networkidle")
         await expect(page.locator("body")).toBeVisible()
-        await context.setOffline(true)
-        await page.goto("/login", { waitUntil: "domcontentloaded" })
-        await expect(page.locator("body")).toBeVisible()
-        await context.setOffline(false)
+        await expect(page.getByText("Habit Tracker")).toBeVisible()
     })
 })

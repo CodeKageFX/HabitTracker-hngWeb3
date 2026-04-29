@@ -6,6 +6,7 @@ import HabitList from "@/components/habits/HabitList"
 import { useRouter } from "next/navigation"
 import { useEffect, useState, useSyncExternalStore } from "react"
 import Image from "next/image"
+import { logout } from "@/lib/auth"
 
 import HabitForm from "@/components/habits/HabitForm"
 import ProfileDropdown from "@/components/auth/ProfileDropdown"
@@ -52,7 +53,16 @@ const Dashboard = () => {
           <Image src="/apple-touch-icon.png" alt="Logo" width={50} height={50} priority />
           <h2 className="font-medium">Habit Tracker</h2>
         </div>
+        <div className="flex items-center gap-1">
         <ProfileDropdown />
+        <button
+          data-testid="auth-logout-button"
+          onClick={logout}
+          className="px-4 py-2 text-sm font-medium text-red-500 border border-red-200 rounded-xl hover:bg-red-50 transition-colors"
+        >
+          Logout
+        </button>
+        </div>
       </header>
 
       <button data-testid="create-habit-button" onClick={()=> setShowHabitDialog(true)} className="md:w-[600px] w-[90%] bg-primary cursor-pointer py-4 rounded-lg hover:bg-accent active:scale-95 transition-all duration-100">Create Habit</button>
