@@ -2,7 +2,7 @@
 
 A mobile-first, local-first Progressive Web App built with Next.js 16 to help users build and track daily habits with deterministic persistence and streak tracking.
 
-## 🚀 Project Overview
+## Project Overview
 
 This application is a Stage 3 implementation of a Habit Tracker PWA. It focuses on technical discipline, testability, and a premium user experience while maintaining all data locally within the browser.
 
