@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { toggleHabitCompletion } from "../../lib/habits";
+import { toggleHabitCompletion } from "../../src/lib/habits";
 
 
 const habit = {

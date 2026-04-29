@@ -3,8 +3,10 @@
 import Image from "next/image"
 import Link from "next/link"
 import { login } from "@/lib/auth"
-import { FormEvent, useState } from "react"
+import { FormEvent, useState, useEffect, useSyncExternalStore } from "react"
 import { useRouter } from "next/navigation"
+import { getSession, subscribe } from "@/lib/storage"
+import { Session } from "@/types/auth"
 
 const LoginForm = () => {
   const router = useRouter()
@@ -13,6 +15,19 @@ const LoginForm = () => {
   const [email, setEmail] = useState<string>("")
   const [password, setPassword] = useState<string>("")
   const [showPassword, setShowPassword] = useState<boolean>(false)
+
+  const session: Session | null = useSyncExternalStore(
+    subscribe,
+    getSession,
+    ()=> null
+  )
+
+
+  useEffect(()=> {
+    if(session) {
+      router.push("/dashboard")
+    }
+  }, [session, router])
 
   const validateForm = ()=> {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

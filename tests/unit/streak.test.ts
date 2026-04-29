@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { calculateCurrentStreak } from "../../lib/streak";
+import { calculateCurrentStreak } from "../../src/lib/streaks";
 
 describe("calculateCurrentStreak", ()=> {
     it("returns 0 when completions is empty", ()=> {
