@@ -40,6 +40,7 @@ test.describe("Habit Tracker app", () => {
     })
 
     test("logs in an existing user and loads only that user's habits", async ({ page }) => {
+        await page.waitForLoadState("networkidle")
         await page.goto("/signup")
         await page.getByTestId("auth-signup-email").fill("user@example.com")
         await page.getByTestId("auth-signup-password").fill("password123")
@@ -95,6 +96,7 @@ test.describe("Habit Tracker app", () => {
 
     test("logs out and redirects to /login", async ({ page }) => {
         await page.goto("/signup")
+        await page.waitForLoadState("networkidle")
         await page.getByTestId("auth-signup-email").fill("logout@example.com")
         await page.getByTestId("auth-signup-password").fill("password123")
         await page.getByTestId("auth-signup-submit").click()
@@ -107,8 +109,10 @@ test.describe("Habit Tracker app", () => {
     test("loads the cached app shell when offline after the app has been loaded once", async ({ page, context }) => {
         await page.goto("/")
         await page.waitForURL("**/login")
-        await context.setOffline(true)
-        await page.reload()
         await expect(page.locator("body")).toBeVisible()
+        await context.setOffline(true)
+        await page.goto("/login", { waitUntil: "domcontentloaded" })
+        await expect(page.locator("body")).toBeVisible()
+        await context.setOffline(false)
     })
 })
