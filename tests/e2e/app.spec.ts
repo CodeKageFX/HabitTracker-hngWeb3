@@ -2,6 +2,7 @@ import { test, expect } from "@playwright/test"
 
 test.describe("Habit Tracker app", () => {
     test.beforeEach(async ({ page }) => {
+        await page.goto("/")
         await page.evaluate(() => localStorage.clear())
     })
 
