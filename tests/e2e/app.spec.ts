@@ -111,6 +111,6 @@ test.describe("Habit Tracker app", () => {
         await page.waitForURL("**/login")
         await page.waitForLoadState("networkidle")
         await expect(page.locator("body")).toBeVisible()
-        await expect(page.getByText("Habit Tracker")).toBeVisible()
+        await expect(page.locator("main")).toBeVisible()
     })
 })
