@@ -1,11 +1,11 @@
-export function calculateCurrentStreak(completions: string[], today?: string): number {
-    const todayStr = today ?? new Date().toISOString().split("T")[0]
+export function calculateCurrentStreak(completions: string[], currentDate?: string): number {
+    const today = currentDate ?? new Date().toISOString().split("T")[0]
     const unique = [...new Set(completions)]
 
-    if (!unique.includes(todayStr)) return 0
+    if (!completions.includes(today)) return 0
 
     let streak = 0
-    const [y, m, d] = todayStr.split("-").map(Number)
+    const [y, m, d] = today.split("-").map(Number)
     const current = new Date(y, m - 1, d)
 
     while (true) {

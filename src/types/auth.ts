@@ -1,11 +1,11 @@
-export interface User {
+export type User = {
     id: string,
     email: string,
     password: string,
     createdAt: string
 }
 
-export interface Session {
+export type Session = {
     userId: string,
     email: string
 }

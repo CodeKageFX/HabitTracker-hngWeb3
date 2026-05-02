@@ -66,6 +66,23 @@ This project includes a comprehensive test suite covering unit, integration, and
 | `npm run test:e2e` | Runs Playwright for full end-to-end user journeys. |
 | `npm run test` | Runs the full suite in sequence. |
 
+## Run Instructions
+
+1.  **Clone the Repo**: `git clone ...`
+2.  **Install**: `npm install`
+3.  **Dev**: `npm run dev`
+4.  **Test**: `npm run test`
+
+## Test File Mapping
+
+- `tests/unit/slug.test.ts` -> `src/lib/slug.ts`
+- `tests/unit/validators.test.ts` -> `src/lib/validators.ts`
+- `tests/unit/streaks.test.ts` -> `src/lib/streaks.ts`
+- `tests/unit/habits.test.ts` -> `src/lib/habits.ts`
+- `tests/integration/auth-flow.test.tsx` -> `src/components/auth/*`
+- `tests/integration/habit-form.test.tsx` -> `src/components/habits/*`
+- `tests/e2e/app.spec.ts` -> `src/app/*`
+
 ---
 
 ## 📂 Test Mapping

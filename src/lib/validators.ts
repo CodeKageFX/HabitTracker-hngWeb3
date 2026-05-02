@@ -11,7 +11,7 @@ export function validateHabitName(name: string): {
             value: value,
             error: "Habit name is required"
         }
-    }else if(value.length >= 61) {
+    }else if(value.length > 60) {
         return {
             valid: false,
             value: value,
